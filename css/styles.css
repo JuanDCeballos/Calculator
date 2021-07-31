@@ -5,6 +5,7 @@
   --calculator-number-btns: #3d3f4b;
   --calculator-operations-btns: #bcc1c7;
   --calculator-reset-btn: #f89734;
+  --calculator-color: #e9ecf3;
 }
 
 body {
@@ -21,7 +22,7 @@ body {
 
 .container {
   min-width: 450px;
-  min-height: 600px;
+  min-height: 560px;
   padding: 20px;
   background-color: var(--calculator-bg);
   border-radius: 20px;
@@ -31,4 +32,102 @@ body {
   height: 100px;
   background-color: var(--calculator-output);
   border-radius: 15px;
+}
+
+.buttons {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas:
+    'ac ac division multiply'
+    'n7 n8 n9 subtract'
+    'n4 n5 n6 add'
+    'n1 n2 n3 equal'
+    'n0 n0 doot equal';
+  grid-gap: 10px;
+}
+
+.cta {
+  background-color: var(--calculator-number-btns);
+  border: none;
+  height: 80px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 40px;
+  color: var(--calculator-color);
+}
+
+.operand {
+  background-color: var(--calculator-operations-btns);
+}
+
+.ac {
+  background-color: var(--calculator-reset-btn);
+  grid-area: ac;
+}
+
+.division {
+  grid-area: division;
+}
+
+.multiply {
+  grid-area: multiply;
+}
+
+.n7 {
+  grid-area: n7;
+}
+
+.n8 {
+  grid-area: n8;
+}
+
+.n9 {
+  grid-area: n9;
+}
+
+.subtract {
+  grid-area: subtract;
+}
+
+.n4 {
+  grid-area: n4;
+}
+
+.n5 {
+  grid-area: n5;
+}
+
+.n6 {
+  grid-area: n6;
+}
+
+.add {
+  grid-area: add;
+}
+
+.n1 {
+  grid-area: n1;
+}
+
+.n2 {
+  grid-area: n2;
+}
+
+.n3 {
+  grid-area: n3;
+}
+
+.equal {
+  height: 100%;
+  grid-area: equal;
+}
+
+.n0 {
+  grid-area: n0;
+}
+
+.dot {
+  grid-area: doot;
 }
