@@ -1,8 +1,34 @@
 :root {
   --bg: #6dd14b;
   --calculator-bg: #5a5c68;
-  --calculator-display: #c1d797;
+  --calculator-output: #c1d797;
   --calculator-number-btns: #3d3f4b;
   --calculator-operations-btns: #bcc1c7;
   --calculator-reset-btn: #f89734;
+}
+
+body {
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  min-width: 450px;
+  min-height: 600px;
+  padding: 20px;
+  background-color: var(--calculator-bg);
+  border-radius: 20px;
+}
+
+.output {
+  height: 100px;
+  background-color: var(--calculator-output);
+  border-radius: 15px;
 }
