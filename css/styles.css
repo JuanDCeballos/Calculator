@@ -145,9 +145,10 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  font-size: 25px;
+  font-size: 20px;
   margin-right: 10px;
   font-weight: 300;
+  letter-spacing: 5px;
 }
 
 .output > .result {
@@ -158,4 +159,5 @@ body {
   font-size: 40px;
   margin-right: 10px;
   font-weight: 400;
+  letter-spacing: 3px;
 }
