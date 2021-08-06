@@ -1,27 +1,47 @@
 const buttons = document.querySelectorAll('.cta');
 const numberButtons = document.querySelectorAll('.number');
+const nButtons = document.querySelectorAll('.number');
 const operandButtons = document.querySelectorAll('.operand');
 const displayOperation = document.getElementById('operation');
 const displayResult = document.getElementById('result');
 
-buttons.forEach((button) => {
-  button.addEventListener('click', () => {
-    let numberOne = 0;
-    let numberTwo = 0;
-    let operand = undefined;
-    if (button.id == numberButtons) {
-      numberOne = button.id;
-      console.log(numberOne);
-    } else if (button.id == operandButtons) {
-      operand = button.id;
-      console.log(operand);
+let num1;
+let num1ToInt;
+let num2;
+let num2ToInt;
+let operand;
+let operand2;
+
+numberButtons.forEach((numberButton) => {
+  numberButton.addEventListener('click', () => {
+    if (num1 === undefined) {
+      num1 = numberButton.id;
+      populateDisplay(num1);
+      num1ToInt = parseInt(num1);
+    } else if (num1 !== undefined) {
+      num2 = numberButton.id;
+      populateDisplay(num2);
+      num2ToInt = parseInt(num2);
     }
-    populateDisplay(numberOne, operand);
+  });
+});
+
+operandButtons.forEach((operandButton) => {
+  operandButton.addEventListener('click', () => {
+    if (operand === undefined) {
+      operand = operandButton.id;
+      populateDisplay(operand);
+    } else if (operand !== undefined) {
+      operand2 = operandButton.id;
+    }
+    if (operandButton.id === '=') {
+      displayResult.textContent = operate(num1ToInt, num2ToInt, operand);
+    }
   });
 });
 
 function populateDisplay([...theArgs]) {
-  let display = (displayOperation.textContent += theArgs);
+  displayOperation.textContent += theArgs;
 }
 
 function sum(a, b) {
@@ -41,13 +61,21 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
-  if (operator === sum) {
-    return sum(a, b);
-  } else if (operator === subtract) {
-    return subtract(a, b);
-  } else if (operator === multiply) {
-    return multiply(a, b);
-  } else if (operator === divide) {
-    return divide(a, b);
+  switch (operator) {
+    case '+':
+      return sum(a, b);
+      break;
+
+    case '-':
+      return subtract(a, b);
+      break;
+
+    case '*':
+      return multiply(a, b);
+      break;
+
+    case '/':
+      return divide(a, b);
+      break;
   }
 }
