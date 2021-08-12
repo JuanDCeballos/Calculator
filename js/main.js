@@ -1,44 +1,59 @@
 const buttons = document.querySelectorAll('.cta');
+const ac = document.querySelector('.ac');
 const numberButtons = document.querySelectorAll('.number');
-const nButtons = document.querySelectorAll('.number');
 const operandButtons = document.querySelectorAll('.operand');
 const displayOperation = document.getElementById('operation');
 const displayResult = document.getElementById('result');
 
-let num1;
-let num1ToInt;
-let num2;
-let num2ToInt;
-let operand;
-let operand2;
+let num1 = [];
+let num2 = [];
+// let num1ToInt;
+let operand = [];
+
+ac.addEventListener('click', () => {
+  displayOperation.textContent = '';
+  displayResult.textContent = '';
+  num1 = [];
+  num2 = [];
+  operand = [];
+});
 
 numberButtons.forEach((numberButton) => {
   numberButton.addEventListener('click', () => {
-    if (num1 === undefined) {
-      num1 = numberButton.id;
-      populateDisplay(num1);
-      num1ToInt = parseInt(num1);
-    } else if (num1 !== undefined) {
-      num2 = numberButton.id;
-      populateDisplay(num2);
-      num2ToInt = parseInt(num2);
+    if (
+      operand.includes('+') ||
+      operand.includes('*') ||
+      operand.includes('-') ||
+      operand.includes('/')
+    ) {
+      num2.push(numberButton.id);
+    } else {
+      num1.push(numberButton.id);
     }
+    populateDisplay(numberButton.id);
   });
 });
 
 operandButtons.forEach((operandButton) => {
   operandButton.addEventListener('click', () => {
-    if (operand === undefined) {
-      operand = operandButton.id;
-      populateDisplay(operand);
-    } else if (operand !== undefined) {
-      operand2 = operandButton.id;
-    }
+    let op = operandButton.id;
+    operand.push(op);
+    populateDisplay(op);
     if (operandButton.id === '=') {
-      displayResult.textContent = operate(num1ToInt, num2ToInt, operand);
+      let num1ToEvaluate = lmao(num1);
+      let num2ToEvaluate = lmao(num2);
+      displayResult.textContent = operate(
+        num1ToEvaluate,
+        num2ToEvaluate,
+        operand[0]
+      );
     }
   });
 });
+
+function lmao(arr) {
+  return Number(arr.join(''));
+}
 
 function populateDisplay([...theArgs]) {
   displayOperation.textContent += theArgs;
