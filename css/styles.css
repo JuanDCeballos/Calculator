@@ -43,7 +43,7 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-template-areas:
-    'ac ac division multiply'
+    'ac c division multiply'
     'n7 n8 n9 subtract'
     'n4 n5 n6 add'
     'n1 n2 n3 equal'
@@ -68,6 +68,11 @@ body {
 
 .operand {
   background-color: var(--calculator-operations-btns);
+}
+
+.c {
+  background-color: var(--calculator-reset-btn);
+  grid-area: c;
 }
 
 .ac {
