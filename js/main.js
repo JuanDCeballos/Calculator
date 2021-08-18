@@ -1,5 +1,6 @@
 const buttons = document.querySelectorAll('.cta');
 const ac = document.querySelector('.ac');
+const c = document.querySelector('.c');
 const equal = document.querySelector('.equal');
 const numberButtons = document.querySelectorAll('.number');
 const operandButtons = document.querySelectorAll('.operand');
@@ -9,17 +10,23 @@ const displayResult = document.getElementById('result');
 let num1 = '';
 let num2 = '';
 let operand = '';
+let result;
 
-ac.addEventListener('click', () => {
-  displayOperation.textContent = '';
-  displayResult.textContent = '';
-  num1 = '';
-  num2 = '';
-  operand = undefined;
-});
+ac.addEventListener('click', clear);
+
+// c.addEventListener('click', removeNumber);
 
 equal.addEventListener('click', () => {
-  displayResult.textContent = operate(Number(num1), Number(num2), operand);
+  result = operate(Number(num1), Number(num2), operand);
+  num1 = result;
+  num2 = '';
+  operand = '';
+  displayOperation.textContent = result;
+  displayResult.textContent = result;
+  if (displayResult.textContent === 'Infinity') {
+    alert("You can't dive by 0");
+    clear();
+  }
 });
 
 numberButtons.forEach((numberButton) => {
@@ -27,9 +34,33 @@ numberButtons.forEach((numberButton) => {
     if (!operand) {
       num1 += numberButton.id;
       populateDisplay(numberButton.id);
+      let num1Length = Array.from(num1);
+      if (num1Length.length > 13) {
+        alert("Your first number can't be more than 13 characters");
+        displayOperation.textContent = '';
+        num1 = '';
+        num2 = '';
+        operand = '';
+      }
     } else {
       num2 += numberButton.id;
       populateDisplay(numberButton.id);
+      let num2Length = Array.from(num2);
+      if (num2Length.length > 13) {
+        alert("Your second number can't be more than 13 characters");
+        displayOperation.textContent = '';
+        num1 = '';
+        num2 = '';
+        operand = '';
+      }
+      if (num2 != '') {
+        result = operate(Number(num1), Number(num2), operand);
+        num1 = result;
+        num2 = '';
+        operand = '';
+        displayOperation.textContent = `${num1}${operand}`;
+        displayResult.textContent = `${result}`;
+      }
     }
   });
 });
@@ -40,6 +71,22 @@ operandButtons.forEach((operandButton) => {
     populateDisplay(operand);
   });
 });
+
+function clear() {
+  displayOperation.textContent = '';
+  displayResult.textContent = '';
+  num1 = '';
+  num2 = '';
+  operand = '';
+  result = 0;
+}
+
+// function removeNumber() {
+//   // displayOperation.textContent = displayOperation.textContent
+//   //   .toString()
+//   //   .slice(0, -1);
+//   num1.toString().slice(0, -1);
+// }
 
 function populateDisplay([...theArgs]) {
   displayOperation.textContent += theArgs;
