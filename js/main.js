@@ -99,28 +99,13 @@ function removeNumber() {
     num2 = num2.slice(0, -1);
     displayOperation.textContent = displayOperation.textContent.slice(0, -1);
   } else if (operand != '') {
-    operand.textContent = '';
-    displayOperation.textContent = '';
+    operand = operand.slice(0, -1);
+    displayOperation.textContent = displayOperation.textContent.slice(0, -1);
   } else if (num1 != '') {
     num1 = num1.slice(0, -1);
     displayOperation.textContent = displayOperation.textContent.slice(0, -1);
   }
 }
-
-// function checkDot() {
-//   if (num1.includes('.')) {
-//     dot.disable = true;
-//   } else if (num2.includes('.') == true) {
-//     console.log('Hola2');
-//   }
-// }
-// dot.addEventListener('click', () => {
-//   if (num1 === '') {
-//     // num1 += '0.';
-//     displayOperation.textContent += '0';
-//     console.log('Hola');
-//   }
-// });
 
 function populateOperation([...theArgs]) {
   displayOperation.textContent += theArgs;
