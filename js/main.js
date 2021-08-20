@@ -1,3 +1,5 @@
+const a = 'a';
+
 const buttons = document.querySelectorAll('.cta');
 const ac = document.querySelector('.ac');
 const c = document.querySelector('.c');
