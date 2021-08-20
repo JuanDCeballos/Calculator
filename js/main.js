@@ -1,6 +1,7 @@
 const buttons = document.querySelectorAll('.cta');
 const ac = document.querySelector('.ac');
 const c = document.querySelector('.c');
+const dot = document.querySelector('.dot');
 const equal = document.querySelector('.equal');
 const numberButtons = document.querySelectorAll('.number');
 const operandButtons = document.querySelectorAll('.operand');
@@ -10,13 +11,17 @@ const displayResult = document.getElementById('result');
 let num1 = '';
 let num2 = '';
 let operand = '';
+let operand2 = '';
 let result;
 
 ac.addEventListener('click', clear);
 
-// c.addEventListener('click', removeNumber);
+c.addEventListener('click', removeNumber);
 
 equal.addEventListener('click', () => {
+  if (num1 === '' || operand === '' || num2 === '') {
+    clear();
+  }
   result = operate(Number(num1), Number(num2), operand);
   num1 = result;
   num2 = '';
@@ -33,7 +38,7 @@ numberButtons.forEach((numberButton) => {
   numberButton.addEventListener('click', () => {
     if (!operand) {
       num1 += numberButton.id;
-      populateDisplay(numberButton.id);
+      populateOperation(numberButton.id);
       let num1Length = Array.from(num1);
       if (num1Length.length > 13) {
         alert("Your first number can't be more than 13 characters");
@@ -41,10 +46,11 @@ numberButtons.forEach((numberButton) => {
         num1 = '';
         num2 = '';
         operand = '';
+        operand2 = '';
       }
     } else {
       num2 += numberButton.id;
-      populateDisplay(numberButton.id);
+      populateOperation(numberButton.id);
       let num2Length = Array.from(num2);
       if (num2Length.length > 13) {
         alert("Your second number can't be more than 13 characters");
@@ -52,14 +58,7 @@ numberButtons.forEach((numberButton) => {
         num1 = '';
         num2 = '';
         operand = '';
-      }
-      if (num2 != '') {
-        result = operate(Number(num1), Number(num2), operand);
-        num1 = result;
-        num2 = '';
-        operand = '';
-        displayOperation.textContent = `${num1}${operand}`;
-        displayResult.textContent = `${result}`;
+        operand2 = '';
       }
     }
   });
@@ -67,8 +66,21 @@ numberButtons.forEach((numberButton) => {
 
 operandButtons.forEach((operandButton) => {
   operandButton.addEventListener('click', () => {
-    operand = operandButton.id;
-    populateDisplay(operand);
+    if (operand != '') {
+      operand2 = operandButton.id;
+      populateOperation(operandButton.id);
+    } else {
+      operand = operandButton.id;
+      populateOperation(operandButton.id);
+    }
+    if (operand2 != '') {
+      result = operate(Number(num1), Number(num2), operand);
+      num1 = result;
+      num2 = '';
+      operand = operand2;
+      displayOperation.textContent = result + operand;
+      displayResult.textContent = result;
+    }
   });
 });
 
@@ -78,17 +90,39 @@ function clear() {
   num1 = '';
   num2 = '';
   operand = '';
-  result = 0;
+  operand2 = '';
+  result;
 }
 
-// function removeNumber() {
-//   // displayOperation.textContent = displayOperation.textContent
-//   //   .toString()
-//   //   .slice(0, -1);
-//   num1.toString().slice(0, -1);
-// }
+function removeNumber() {
+  if (num2 != '') {
+    num2 = num2.slice(0, -1);
+    displayOperation.textContent = displayOperation.textContent.slice(0, -1);
+  } else if (operand != '') {
+    operand.textContent = '';
+    displayOperation.textContent = '';
+  } else if (num1 != '') {
+    num1 = num1.slice(0, -1);
+    displayOperation.textContent = displayOperation.textContent.slice(0, -1);
+  }
+}
 
-function populateDisplay([...theArgs]) {
+// function checkDot() {
+//   if (num1.includes('.')) {
+//     dot.disable = true;
+//   } else if (num2.includes('.') == true) {
+//     console.log('Hola2');
+//   }
+// }
+// dot.addEventListener('click', () => {
+//   if (num1 === '') {
+//     // num1 += '0.';
+//     displayOperation.textContent += '0';
+//     console.log('Hola');
+//   }
+// });
+
+function populateOperation([...theArgs]) {
   displayOperation.textContent += theArgs;
 }
 
